@@ -24,12 +24,16 @@ func main() {
 
 	// Initialize services
 	authService := services.NewAuthService(db)
+	serviceService := services.NewServiceService(db)
+	clientService := services.NewClientService(db)
 
 	// Initialize Fiber
 	app := fiber.New()
 
 	// Setup routes
 	routes.SetupAuthRoutes(app, authService)
+	routes.SetupServiceRoutes(app, serviceService)
+	routes.SetupClientRoutes(app, clientService)
 
 	// Basic route
 	app.Get("/", func(c *fiber.Ctx) error {
