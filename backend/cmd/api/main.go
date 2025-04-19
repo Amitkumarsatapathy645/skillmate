@@ -9,6 +9,7 @@ import (
 	"github.com/amit645/skillmate-backend/routes"
 	"github.com/amit645/skillmate-backend/services"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 )
 
@@ -29,6 +30,13 @@ func main() {
 
 	// Initialize Fiber
 	app := fiber.New()
+
+	// Enable CORS
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:3000",
+		AllowHeaders: "Authorization, Content-Type",
+		AllowMethods: "GET, POST, PUT, DELETE",
+	}))
 
 	// Setup routes
 	routes.SetupAuthRoutes(app, authService)
